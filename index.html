@@ -15,8 +15,41 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a1a2e'/%3E%3Cpath d='M8 10h16v2H8zm0 4h16v2H8zm0 4h12v2H8z' fill='%23fff' opacity='.9'/%3E%3Ccircle cx='24' cy='22' r='4' fill='%236366f1'/%3E%3Cpath d='M22 22h2v-1.5l1.2-.8.8 1.3-1.5 1v.5h-2.5z' fill='%23fff'/%3E%3C/svg%3E" />
   </head>
   <body>
+    <div class="page-loader" id="page-loader" aria-live="polite" aria-busy="true">
+      <div class="page-loader__bg"></div>
+      <div class="page-loader__bg-chaos" aria-hidden="true"></div>
+      <div class="page-loader__scan" aria-hidden="true"></div>
+      <div class="page-loader__dots">
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+        <span class="page-loader__dot"></span>
+      </div>
+      <div class="page-loader__inner">
+        <div class="page-loader__icon" aria-hidden="true">
+          <span class="page-loader__line"></span>
+          <span class="page-loader__line"></span>
+          <span class="page-loader__line"></span>
+        </div>
+        <h1 class="page-loader__title">Резюме</h1>
+        <p class="page-loader__subtitle">Кирило Бахтіяров</p>
+        <p class="page-loader__hint" id="page-loader-hint">Готуємо сторінку...</p>
+        <div class="page-loader__bar">
+          <div class="page-loader__bar-fill"></div>
+          <div class="page-loader__bar-shine"></div>
+        </div>
+        <p class="page-loader__percent" id="page-loader-percent">0%</p>
+      </div>
+    </div>
     <div
       class="liquid-glass-glow"
       id="liquid-glass-glow"
@@ -733,12 +766,13 @@
             <div class="resume__card">
               <p>
                 <strong>ВІТІ ім. Героїв Крут</strong> — Комп'ютерні науки, м.
-                Київ (2020–2024)
+                Київ (2020–2024). Алгоритми, бази даних, мережі, веб-технології.
               </p>
               <p>
-                <strong>НУВГП</strong> — Комп'ютерні науки, м. Рівне (2024–2025)
+                <strong>НУВГП</strong> — Комп'ютерні науки, м. Рівне (2024–2025). Магістратура, глибокий курс з розподілених систем та архітектури ПЗ.
               </p>
               <p class="resume__meta">Бакалавр (2024), Магістр (2025)</p>
+              <p class="resume__meta">Курси: англійська (B1+), онлайн-курси з React та Node.js.</p>
             </div>
           </section>
 
@@ -751,26 +785,44 @@
             <h2 id="skills-heading" class="resume__section-title">Навички</h2>
             <div class="skills-grid">
               <div class="resume__card skill-card">
-                <h3 class="skill-card__title">Технічна підтримка</h3>
+                <h3 class="skill-card__title">Frontend</h3>
                 <ul class="skill-list">
-                  <li>
-                    Підтримка користувачів, моніторинг веб-додатків та серверів
-                  </li>
-                  <li>Діагностика, аналіз логів, робота з API</li>
+                  <li>JavaScript (ES6+), TypeScript, React, Next.js, Vue.js (базовий досвід)</li>
+                  <li>HTML5, CSS3, SCSS, адаптивна та семантична верстка, доступність (a11y)</li>
+                  <li>SPA, PWA, робота з DOM, state (Redux, Zustand, Context API)</li>
+                  <li>Тестування: Jest, React Testing Library, e2e (Playwright/Cypress — основи)</li>
                 </ul>
               </div>
               <div class="resume__card skill-card">
-                <h3 class="skill-card__title">Розробка</h3>
+                <h3 class="skill-card__title">Backend та API</h3>
                 <ul class="skill-list">
-                  <li>JavaScript (ES6+), TypeScript, React, Next.js</li>
-                  <li>HTML5, CSS3, адаптивна верстка</li>
-                  <li>REST API, клієнт-сервер, авторизація</li>
+                  <li>Node.js, Express, REST API, авторизація (JWT, OAuth, сесії)</li>
+                  <li>Python (FastAPI, Flask) — бекенд та скрипти, обробка даних</li>
+                  <li>Інтеграції з зовнішніми API, веб-сокети, обробка помилок та валідація</li>
                 </ul>
               </div>
               <div class="resume__card skill-card">
-                <h3 class="skill-card__title">Інструменти</h3>
+                <h3 class="skill-card__title">Бази даних та інфра</h3>
                 <ul class="skill-list">
-                  <li>Git (GitHub/GitLab), Docker, SQL</li>
+                  <li>SQL: PostgreSQL, MySQL, SQLite — запити, міграції, індекси</li>
+                  <li>NoSQL: MongoDB — схеми, агрегації, інтеграція з Node/Python</li>
+                  <li>Docker, Docker Compose, основи CI/CD (GitHub Actions), Linux-сервер</li>
+                </ul>
+              </div>
+              <div class="resume__card skill-card">
+                <h3 class="skill-card__title">Технічна підтримка та процеси</h3>
+                <ul class="skill-list">
+                  <li>Підтримка користувачів, діагностика, аналіз логів, моніторинг сервісів</li>
+                  <li>Документування, написання інструкцій, навчання користувачів</li>
+                  <li>Робота з тикетами, пріоритизація, комунікація з командою та клієнтами</li>
+                </ul>
+              </div>
+              <div class="resume__card skill-card">
+                <h3 class="skill-card__title">Інструменти та інше</h3>
+                <ul class="skill-list">
+                  <li>Git (GitHub, GitLab), гілки, код-рев'ю, code style (ESLint, Prettier)</li>
+                  <li>Figma — читання макетів, експорт, базовий прототип</li>
+                  <li>Англійська B1+ (технічна документація, комунікація), українська — рідна</li>
                 </ul>
               </div>
             </div>
@@ -792,10 +844,10 @@
                 data-delay="0"
               >
                 <span class="timeline-item__year">2022 — н.в.</span>
-                <h3 class="timeline-item__role">Frontend Developer</h3>
+                <h3 class="timeline-item__role">Frontend / Full-Stack Developer</h3>
                 <p class="timeline-item__company">Студія цифрових продуктів</p>
                 <p class="timeline-item__desc">
-                  Верстка та розробка SPA, компонентна бібліотека, код-рев'ю.
+                  Розробка SPA на React/TypeScript, компонентна бібліотека, інтеграція з REST API та авторизацією. Код-рев'ю, рефакторинг, участь у плануванні спринтів. Допомога з backend на Node.js та підтримка існуючих сервісів.
                 </p>
               </article>
               <article
@@ -804,10 +856,10 @@
                 data-delay="1"
               >
                 <span class="timeline-item__year">2020 — 2022</span>
-                <h3 class="timeline-item__role">Junior Frontend</h3>
+                <h3 class="timeline-item__role">Junior Frontend Developer</h3>
                 <p class="timeline-item__company">Веб-агентство</p>
                 <p class="timeline-item__desc">
-                  Лендинги, корпоративні сайти, інтеграції з CMS.
+                  Верстка лендингів і корпоративних сайтів, інтеграції з CMS, адаптивний дизайн. Робота з JavaScript (jQuery, vanilla JS), формами та зовнішніми API. Участь у технічній підтримці проєктів.
                 </p>
               </article>
             </div>
@@ -834,7 +886,7 @@
                 SQLite), логування та моніторинг. Досвід презентації рішень,
                 підготовки технічних матеріалів, навчання користувачів та роботи
                 в структурованому середовищі з підтримкою та впровадженням
-                інформаційних систем.
+                інформаційних систем. Цікавлюсь сучасним стеком (React, Node, DevOps), люблю доводити фічі до продакшену та покращувати UX.
               </p>
             </div>
           </section>

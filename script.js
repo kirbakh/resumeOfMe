@@ -1,4 +1,33 @@
 (function () {
+  var loader = document.getElementById('page-loader');
+  if (loader) {
+    document.body.classList.add('loading');
+    var percentEl = document.getElementById('page-loader-percent');
+    var hintEl = document.getElementById('page-loader-hint');
+    var hints = ['Готуємо сторінку...', 'Завантажуємо стилі...', 'Налаштовуємо теми...', 'Майже готово...', 'Відкриваємо резюме...'];
+    var start = Date.now();
+    var duration = 5000;
+    var tick = setInterval(function() {
+      var elapsed = Date.now() - start;
+      var p = Math.min(100, Math.floor((elapsed / duration) * 100));
+      if (percentEl) percentEl.textContent = p + '%';
+      var step = Math.floor((elapsed / duration) * hints.length);
+      if (hintEl && hints[step]) hintEl.textContent = hints[step];
+      if (elapsed >= duration) clearInterval(tick);
+    }, 80);
+    setTimeout(function() {
+      clearInterval(tick);
+      if (percentEl) percentEl.textContent = '100%';
+      if (hintEl) hintEl.textContent = 'Готово!';
+      loader.classList.add('page-loader--hidden');
+      loader.setAttribute('aria-busy', 'false');
+      document.body.classList.remove('loading');
+      setTimeout(function() {
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 700);
+    }, duration);
+  }
+
   const THEME_STORAGE_KEY = 'resume-theme';
   const DEFAULT_THEME = 'minimalism';
 
@@ -728,15 +757,16 @@
 
   function showGameResult(text, isWin) {
     var el = document.createElement('p');
-    el.className = 'mini-game-result';
+    el.className = 'mini-game-result' + (isWin ? ' is-win' : '');
     el.textContent = text;
-    if (isWin) el.style.color = 'var(--accent)';
     miniGameArea.appendChild(el);
   }
 
   function gameSkeuo() {
-    miniGameTitle.textContent = 'Знайди пари';
-    var ids = [0,0,1,1,2,2,3,3];
+    miniGameTitle.textContent = 'Знайди всі пари';
+    var emoji = ['📜','🃏','📎','✉️','🔑','⭐'];
+    var ids = [];
+    for (var e = 0; e < emoji.length; e++) { ids.push(e); ids.push(e); }
     for (var i = ids.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var t = ids[i]; ids[i] = ids[j]; ids[j] = t;
@@ -744,9 +774,9 @@
     var opened = [];
     var pairs = 0;
     var moves = 0;
-    var emoji = ['📜','🃏','📎','✉️'];
+    var totalPairs = emoji.length;
     function updateScore() {
-      miniGameScore.textContent = 'Пари: ' + pairs + ' / 4  ·  Ходи: ' + moves;
+      miniGameScore.textContent = 'Пари: ' + pairs + ' / ' + totalPairs + '  ·  Ходи: ' + moves;
     }
     ids.forEach(function(id, idx) {
       var card = document.createElement('button');
@@ -767,9 +797,9 @@
             pairs++;
             updateScore();
             opened = [];
-            if (pairs === 4) {
+            if (pairs >= totalPairs) {
               miniGameScore.textContent = 'Перемога за ' + moves + ' ходів!';
-              showGameResult('Всі пари знайдені!', true);
+              showGameResult('Всі ' + totalPairs + ' пар знайдені за ' + moves + ' ходів!', true);
             }
           } else {
             opened[0].classList.add('mismatch');
@@ -788,9 +818,9 @@
   }
 
   function gameFlat() {
-    miniGameTitle.textContent = 'Клікни червоний';
+    miniGameTitle.textContent = 'Клікни червоний квадрат';
     var round = 0;
-    var maxRound = 5;
+    var maxRound = 7;
     function next() {
       miniGameArea.innerHTML = '';
       miniGameScore.textContent = 'Раунд ' + (round + 1) + ' / ' + maxRound;
@@ -807,18 +837,20 @@
         el.style.animationDelay = (i * 0.04) + 's';
         if (i === target) el.style.animation = 'miniGameCellIn 0.3s ease backwards, miniGamePulse 1s ease-in-out infinite 0.3s';
         el.dataset.target = i === target ? '1' : '0';
-        el.addEventListener('click', function() {
+        function handleHit() {
           if (this.dataset.target === '1') {
             round++;
             if (round >= maxRound) {
               miniGameScore.textContent = 'Усі раунди пройдено!';
-              showGameResult('Перемога!', true);
+              showGameResult('Перемога! Всі ' + maxRound + ' раунди!', true);
             } else setTimeout(next, 200);
           } else {
             this.style.animation = 'miniGameShake 0.4s ease';
             setTimeout(function() { this.style.animation = ''; }.bind(this), 400);
           }
-        });
+        }
+        el.addEventListener('click', handleHit);
+        el.addEventListener('touchend', function(e) { e.preventDefault(); handleHit.call(this); }, { passive: false });
         miniGameArea.appendChild(el);
       }
     }
@@ -829,11 +861,11 @@
     miniGameTitle.textContent = 'Тапай за 5 сек';
     var count = 0;
     var done = false;
-    miniGameScore.textContent = 'Чекай старт...';
+        miniGameScore.textContent = 'Ціль: 15 тапів за 5 сек';
     var zone = document.createElement('div');
     zone.className = 'mini-game-zone';
-    zone.style.width = '200px';
-    zone.style.height = '200px';
+    zone.style.width = '220px';
+    zone.style.height = '220px';
     zone.style.background = 'var(--bg)';
     zone.style.borderRadius = 'var(--radius)';
     zone.style.display = 'flex';
@@ -870,15 +902,15 @@
         clearInterval(countdown);
         miniGameScore.textContent = 'Час вийшов! Результат: ' + count + ' тапів';
         zone.querySelector('.countdown').textContent = count + ' тапів';
-        showGameResult(count >= 10 ? 'Непогано!' : 'Спробуй ще!', count >= 10);
+        showGameResult(count >= 15 ? 'Чемпіон! ' + count + ' тапів!' : (count >= 10 ? 'Непогано: ' + count : 'Спробуй ще: ' + count), count >= 15);
       }
     }, 5800);
   }
 
   function gameMaterialYou() {
-    miniGameTitle.textContent = 'Влови коло';
+    miniGameTitle.textContent = 'Влови 12 кругів';
     var score = 0;
-    var need = 10;
+    var need = 12;
     miniGameScore.textContent = '0 / ' + need;
     var area = miniGameArea;
     area.style.position = 'relative';
@@ -959,38 +991,37 @@
   }
 
   function gameGlassmorphism() {
-    miniGameTitle.textContent = 'Лопни бульбашки';
-    var count = 10;
+    miniGameTitle.textContent = 'Лопни всі бульбашки';
+    var total = 15;
+    var count = total;
     miniGameArea.style.position = 'relative';
-    miniGameArea.style.height = '220px';
-    miniGameScore.textContent = 'Залишилось: ' + count;
-    for (var i = 0; i < count; i++) {
+    miniGameArea.style.height = '260px';
+    miniGameArea.style.overflow = 'visible';
+    miniGameScore.textContent = 'Залишилось: ' + count + ' / ' + total;
+    function popBubble(el) {
+      if (el.classList.contains('popped')) return;
+      el.classList.add('popped');
+      count--;
+      miniGameScore.textContent = 'Залишилось: ' + count + ' / ' + total;
+      if (count <= 0) {
+        miniGameScore.textContent = 'Усі бульбашки лопнули!';
+        showGameResult('Перемога! Всі ' + total + ' лопнули!', true);
+      }
+    }
+    for (var i = 0; i < total; i++) {
       var b = document.createElement('div');
       b.className = 'mini-game-bubble';
-      b.style.background = 'rgba(255,255,255,0.4)';
-      b.style.border = '1px solid rgba(255,255,255,0.6)';
-      b.style.left = (Math.random() * 80 + 10) + '%';
-      b.style.top = (Math.random() * 60 + 10) + '%';
-      b.style.position = 'absolute';
-      b.style.animationDelay = (i * 0.15) + 's';
-      b.addEventListener('click', function() {
-        if (this.classList.contains('popped')) return;
-        this.classList.add('popped');
-        count--;
-        miniGameScore.textContent = 'Залишилось: ' + count;
-        if (count <= 0) {
-          miniGameScore.textContent = 'Усі бульбашки лопнули!';
-          showGameResult('Перемога!', true);
-        }
-      });
+      b.style.cssText = 'left:' + (Math.random() * 78 + 5) + '%;top:' + (Math.random() * 72 + 5) + '%;position:absolute;animation-delay:' + (i * 0.1) + 's;z-index:2;';
+      b.addEventListener('click', function() { popBubble(this); });
+      b.addEventListener('touchstart', function(e) { e.preventDefault(); popBubble(this); }, { passive: false });
       miniGameArea.appendChild(b);
     }
   }
 
   function gameClaymorphism() {
-    miniGameTitle.textContent = 'Влучи в blob';
+    miniGameTitle.textContent = 'Влучи в blob 8 разів';
     var score = 0;
-    var need = 5;
+    var need = 8;
     miniGameScore.textContent = '0 / ' + need;
     miniGameArea.style.position = 'relative';
     miniGameArea.style.height = '220px';
@@ -1014,13 +1045,13 @@
     });
     miniGameArea.appendChild(blob);
     move();
-    setInterval(move, 900);
+    setInterval(move, 700);
   }
 
   function gameBrutalism() {
-    miniGameTitle.textContent = 'Вдари по квадрату';
+    miniGameTitle.textContent = 'Вдари по квадрату 8 разів';
     var round = 0;
-    var maxRound = 5;
+    var maxRound = 8;
     miniGameScore.textContent = 'Чекай появи...';
     var box = document.createElement('div');
     box.style.cssText = 'width:80px;height:80px;background:#0d0d0d;border:4px solid #0d0d0d;cursor:pointer;display:none;';
@@ -1047,9 +1078,9 @@
   }
 
   function gameMinimalism() {
-    miniGameTitle.textContent = 'Клікни крапку';
+    miniGameTitle.textContent = 'Клікни 8 крапок';
     var score = 0;
-    var need = 5;
+    var need = 8;
     miniGameScore.textContent = '0 / ' + need;
     miniGameArea.style.position = 'relative';
     miniGameArea.style.height = '220px';
@@ -1067,7 +1098,7 @@
           miniGameScore.textContent = score + ' / ' + need;
           if (score >= need) {
             miniGameScore.textContent = 'Усі крапки!';
-            showGameResult('Перемога!', true);
+            showGameResult('Перемога! ' + need + ' крапок.', true);
           } else spawn();
         }, 180);
       });
@@ -1077,31 +1108,45 @@
   }
 
   function gameHyperrealism() {
-    miniGameTitle.textContent = 'Злови зірку';
-    miniGameScore.textContent = 'Клікни по зірці, поки вона падає';
+    miniGameTitle.textContent = 'Злови дві зірки';
+    miniGameScore.textContent = 'Клікни по зірці, поки падає. Потрібно 2.';
     miniGameArea.style.position = 'relative';
-    miniGameArea.style.height = '240px';
+    miniGameArea.style.height = '260px';
     miniGameArea.style.overflow = 'hidden';
     var zone = document.createElement('div');
-    zone.style.cssText = 'position:absolute;left:0;right:0;bottom:20px;height:50px;border:2px dashed var(--accent);border-radius:8px;opacity:0.5;pointer-events:none;';
+    zone.style.cssText = 'position:absolute;left:0;right:0;bottom:24px;height:50px;border:2px dashed var(--accent);border-radius:8px;opacity:0.5;pointer-events:none;';
     miniGameArea.appendChild(zone);
-    var star = document.createElement('div');
-    star.textContent = '✦';
-    star.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);top:0;font-size:2rem;color:var(--accent);cursor:pointer;transition:top 2.2s linear;text-shadow:0 0 20px var(--accent);';
-    miniGameArea.appendChild(star);
-    setTimeout(function() { star.style.top = '160px'; }, 100);
-    star.addEventListener('click', function() {
-      star.style.transition = 'none';
-      star.style.animation = 'miniGamePop 0.3s ease forwards';
-      miniGameScore.textContent = 'Влучив!';
-      showGameResult('Перемога!', true);
-    });
-    setTimeout(function() {
-      if (star.parentNode && !star.style.animation) {
-        miniGameScore.textContent = 'Не встиг — спробуй ще';
-        showGameResult('Зірка впала', false);
-      }
-    }, 2500);
+    var caught = 0;
+    var need = 2;
+    function spawnStar() {
+      var star = document.createElement('div');
+      star.textContent = '✦';
+      star.style.cssText = 'position:absolute;left:50%;margin-left:-1rem;top:0;font-size:2rem;color:var(--accent);cursor:pointer;transition:top 2.5s linear;text-shadow:0 0 20px var(--accent);';
+      miniGameArea.appendChild(star);
+      setTimeout(function() { star.style.top = '180px'; }, 80);
+      star.addEventListener('click', function() {
+        if (star.classList.contains('caught')) return;
+        star.classList.add('caught');
+        star.style.transition = 'none';
+        star.style.animation = 'miniGamePop 0.3s ease forwards';
+        caught++;
+        miniGameScore.textContent = 'Влучив! ' + caught + ' / ' + need;
+        if (caught >= need) {
+          miniGameScore.textContent = 'Обидві зірки!';
+          showGameResult('Перемога! Обидві зірки зловлені!', true);
+        } else {
+          setTimeout(spawnStar, 600);
+        }
+      });
+      setTimeout(function() {
+        if (star.parentNode && !star.classList.contains('caught')) {
+          star.remove();
+          miniGameScore.textContent = 'Не встиг — спробуй ще';
+          showGameResult('Зірка впала. Потрібно ' + need + '.', false);
+        }
+      }, 2700);
+    }
+    spawnStar();
   }
 
   function gameCyberpunk() {
@@ -1141,9 +1186,9 @@
   }
 
   function gameMemphism() {
-    miniGameTitle.textContent = 'Знайди трикутник';
+    miniGameTitle.textContent = 'Знайди трикутник 5 разів';
     var round = 0;
-    var maxRound = 3;
+    var maxRound = 5;
     function next() {
       miniGameArea.innerHTML = '';
       miniGameScore.textContent = 'Раунд ' + (round + 1) + ' / ' + maxRound;
@@ -1277,9 +1322,9 @@
   }
 
   function gameLiquidMetal() {
-    miniGameTitle.textContent = 'Збери срібло';
+    miniGameTitle.textContent = 'Збери 8 монет';
     var score = 0;
-    var need = 5;
+    var need = 8;
     miniGameScore.textContent = '0 / ' + need;
     miniGameArea.style.position = 'relative';
     miniGameArea.style.height = '200px';
