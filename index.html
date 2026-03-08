@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f5f5f5" />
+    <title>Резюме — Бахтіяров Кирило</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Roboto:wght@400;500;700&family=Outfit:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&family=Syne:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div
+      class="liquid-glass-glow"
+      id="liquid-glass-glow"
+      aria-hidden="true"
+    ></div>
+    <div class="easter-toast" id="easter-toast" aria-live="polite" role="status" aria-hidden="true"></div>
+    <div class="custom-cursor-glow-el" id="custom-cursor-glow" aria-hidden="true"></div>
+    <div class="custom-cursor-trail-el" id="custom-cursor-trail" aria-hidden="true"></div>
+    <div class="custom-cursor-ring-el" id="custom-cursor-ring" aria-hidden="true"></div>
+    <div class="custom-cursor-spotlight-el" id="custom-cursor-spotlight" aria-hidden="true"></div>
+    <div class="cursor-effect" id="cursor-effect" aria-hidden="true"></div>
+    <div class="cursor-trail" id="cursor-trail" aria-hidden="true"></div>
+    <div class="scroll-progress" role="presentation" aria-hidden="true"></div>
+    <a
+      href="#"
+      class="back-to-top"
+      id="back-to-top"
+      aria-label="Прокрутити вгору"
+      title="Вгору"
+      >↑</a
+    >
+    <button type="button" class="print-btn" id="print-btn" aria-label="Друк" title="Друк сторінки">🖨</button>
+    <div class="section-indicator" id="section-indicator" aria-live="polite" aria-hidden="true"></div>
+    <div class="shortcuts-overlay" id="shortcuts-overlay" role="dialog" aria-label="Клавіатурні скорочення" aria-modal="true" hidden>
+      <div class="shortcuts-overlay__inner">
+        <button type="button" class="shortcuts-overlay__close" id="shortcuts-close" aria-label="Закрити">×</button>
+        <h2 class="shortcuts-overlay__title">Клавіатурні скорочення</h2>
+        <ul class="shortcuts-overlay__list">
+          <li><kbd>?</kbd> — ця підказка</li>
+          <li><kbd>Esc</kbd> — закрити меню / модалку</li>
+          <li><kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd> — секрет</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cyberpunk-decor" id="cyberpunk-decor" aria-hidden="true">
+      <div class="cyberpunk-rain" aria-hidden="true"></div>
+    </div>
+    <div class="page-decor" id="page-decor" aria-hidden="true">
+      <span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span><span class="particle"></span
+      ><span class="particle"></span>
+    </div>
+
+    <div class="theme-picker" aria-label="Выбор темы">
+      <button
+        type="button"
+        class="theme-picker__toggle"
+        aria-expanded="false"
+        aria-controls="theme-dropdown"
+        aria-haspopup="true"
+      >
+        <span class="theme-picker__icon"></span>
+        <span class="theme-picker__label">Тема</span>
+        <span class="theme-picker__current" id="theme-current-name"></span>
+        <svg
+          class="theme-picker__chevron"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 6l4 4 4-4"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+      <div id="theme-dropdown" class="theme-dropdown" hidden>
+        <div class="theme-dropdown__panel">
+          <ul id="theme-list" class="theme-list" role="list">
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="skeuomorphism"
+                data-accent="#8b6914"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #8b6914"
+                ></span
+                >Skeuomorphism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="flat"
+                data-accent="#e74c3c"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #e74c3c"
+                ></span
+                >Flat Design
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="material"
+                data-accent="#1976d2"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #1976d2"
+                ></span
+                >Material Design
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="material-you"
+                data-accent="#6750a4"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #6750a4"
+                ></span
+                >Material You
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="neumorphism"
+                data-accent="#5a67d8"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #5a67d8"
+                ></span
+                >Neumorphism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="glassmorphism"
+                data-accent="#ffd93d"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #ffd93d"
+                ></span
+                >Glassmorphism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="claymorphism"
+                data-accent="#c17f59"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #c17f59"
+                ></span
+                >Claymorphism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="brutalism"
+                data-accent="#ff6b35"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #ff6b35"
+                ></span
+                >Neo-Brutalism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="minimalism"
+                data-accent="#111"
+              >
+                <span class="theme-list__swatch" style="--swatch: #111"></span
+                >Minimalism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="hyperrealism"
+                data-accent="#e94560"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #e94560"
+                ></span
+                >3D / Hyper-realism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="cyberpunk"
+                data-accent="#ff00ea"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #ff00ea"
+                ></span
+                >Cyberpunk
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="memphism"
+                data-accent="#ff6b9d"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #ff6b9d"
+                ></span
+                >Memphism
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="terminal"
+                data-accent="#00ff41"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #00ff41"
+                ></span
+                >Terminal
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="aurora"
+                data-accent="#00d4aa"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #00d4aa"
+                ></span
+                >Aurora
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="vaporwave"
+                data-accent="#ff71ce"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #ff71ce"
+                ></span
+                >Vaporwave
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="newspaper"
+                data-accent="#5c4033"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #5c4033"
+                ></span
+                >Newspaper
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn"
+                data-theme="liquid-metal"
+                data-accent="#c0c0c0"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #c0c0c0"
+                ></span
+                >Liquid Metal
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="theme-list__btn theme-list__btn--custom"
+                data-theme="custom"
+                data-accent="#6366f1"
+              >
+                <span
+                  class="theme-list__swatch"
+                  style="--swatch: #6366f1"
+                ></span
+                >✨ Створи тему
+              </button>
+            </li>
+          </ul>
+          <div class="theme-preview" id="theme-preview" aria-live="polite">
+            <div class="theme-preview__inner">
+              <div class="theme-preview__hero">
+                <div class="theme-preview__photo"></div>
+                <div class="theme-preview__intro">
+                  <span class="theme-preview__name">Кирило Б.</span>
+                  <span class="theme-preview__title">Frontend · UI/UX</span>
+                </div>
+              </div>
+              <div class="theme-preview__card">
+                <span class="theme-preview__text"
+                  >О себе, навыки, опыт — в стиле выбранной темы.</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="custom-builder" id="custom-builder" aria-label="Конструктор теми" hidden>
+      <div class="custom-builder__inner">
+        <div class="custom-builder__head">
+          <h2 class="custom-builder__title">Налаштуй свою тему</h2>
+          <button type="button" class="custom-builder__close" id="custom-builder-close" aria-label="Закрити">×</button>
+        </div>
+        <div class="custom-builder__save">
+          <label class="custom-builder__label">Ім'я теми (для збереження)</label>
+          <input type="text" class="custom-builder__input" id="custom-theme-name" placeholder="Наприклад: Марія" maxlength="40" />
+          <button type="button" class="custom-builder__btn custom-builder__btn--save" id="custom-theme-save">Зберегти тему</button>
+          <button type="button" class="custom-builder__btn custom-builder__btn--reset" id="custom-theme-reset">Скинути</button>
+        </div>
+        <div class="custom-builder__opts">
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Фон сторінки</legend>
+            <div class="custom-builder__row" data-opt="bg" role="radiogroup" aria-label="Фон сторінки">
+              <button type="button" class="custom-builder__swatch" data-value="1" style="background:#fafafa" title="Світлий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="2" style="background:#1a1a2e" title="Темно-синій"></button>
+              <button type="button" class="custom-builder__swatch" data-value="3" style="background:#0a0a0a" title="Чорний"></button>
+              <button type="button" class="custom-builder__swatch" data-value="4" style="background:#e8e0d5" title="Беж"></button>
+              <button type="button" class="custom-builder__swatch" data-value="5" style="background:#0d0d2b" title="Глибокий синій"></button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Фон карток</legend>
+            <div class="custom-builder__row" data-opt="card" role="radiogroup">
+              <button type="button" class="custom-builder__swatch" data-value="1" style="background:#fff" title="Білий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="2" style="background:#16213e" title="Синій"></button>
+              <button type="button" class="custom-builder__swatch" data-value="3" style="background:#111" title="Темний"></button>
+              <button type="button" class="custom-builder__swatch" data-value="4" style="background:#f4f0e8" title="Кремовий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="5" style="background:linear-gradient(145deg,#2a2a4e,#1a1a3e)" title="Градієнт"></button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Колір тексту</legend>
+            <div class="custom-builder__row" data-opt="text" role="radiogroup">
+              <button type="button" class="custom-builder__swatch" data-value="1" style="background:#111" title="Чорний"></button>
+              <button type="button" class="custom-builder__swatch" data-value="2" style="background:#e8e8e8" title="Світлий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="3" style="background:#00ff41" title="Зелений"></button>
+              <button type="button" class="custom-builder__swatch" data-value="4" style="background:#2c2419" title="Коричневий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="5" style="background:#ff71ce" title="Рожевий"></button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Акцент</legend>
+            <div class="custom-builder__row" data-opt="accent" role="radiogroup">
+              <button type="button" class="custom-builder__swatch" data-value="1" style="background:#1976d2" title="Синій"></button>
+              <button type="button" class="custom-builder__swatch" data-value="2" style="background:#00d4aa" title="Бірюзовий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="3" style="background:#ff6b35" title="Помаранчевий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="4" style="background:#ff71ce" title="Рожевий"></button>
+              <button type="button" class="custom-builder__swatch" data-value="5" style="background:#8b6914" title="Золотистий"></button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Ефект курсора</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="cursor" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Блик</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Слід</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Кільце</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Промінь</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Анімації</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="anim" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Вимкнено</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Тихі</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Середні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Помітні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Макс</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Стиль карток</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="cardStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Плоский</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Тінь</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Рамка</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Скло</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Градієнт</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Роздільник секцій</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="divider" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Лінія</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Градієнт</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Крапки</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Хвиля</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Шрифт</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="font" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Системний</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Серіф</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Моно</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">М'який</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Заголовки</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Товщина рамки</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="borderWidth" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">0</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">1px</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">2px</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">3px</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">4px</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Радіус кутів</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="radius" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">0</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">4px</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">8px</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">12px</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">24px</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Посилання</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="linkStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Підкресл.</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Без</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Пунктир</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Колір</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Жирний</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Заголовки</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="headingStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Звичайний</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">КАПС</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Мал.капс</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Жирний</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Градієнт</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Рамка фото</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="photoFrame" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Круг</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Квадрат</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Скло</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Тінь</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Фокус</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="focusRing" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Тонкий</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Товстий</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Акцент</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Світло</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Швидкість переходів</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="transitionSpeed" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Повільно</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Норма</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Швидко</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Миттєво</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Hover картки</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="cardHover" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Підйом</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Масштаб</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Світло</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Рамка</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Заголовок секції</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="sectionTitleStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Лінія</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Товста</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Крапки</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Іконка</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Градієнт</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Маркер списку</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="listMarker" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Диск</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Круг</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Квадрат</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Акцент</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Тіні</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="shadowStrength" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">М'яка</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Середня</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Сильна</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Різка</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Паттерн фону</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="bgPattern" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Крапки</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Сітка</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Лінії</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Градієнт</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Відступи</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="spacing" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Компакт</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Норма</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Простір</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Великі</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Макс</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Виділення акценту</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="emphasis" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Жирний</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Колір</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Тло</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Підкресл.</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Рамка</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Стиль кнопок</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="buttonStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Плоский</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Заповн.</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Outline</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Pill</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Тінь</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Інпути</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="inputStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Плоский</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">Рамка</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Тінь</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Підсвітка</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Скло</button>
+            </div>
+          </fieldset>
+          <fieldset class="custom-builder__field">
+            <legend class="custom-builder__legend">Бейджі</legend>
+            <div class="custom-builder__row custom-builder__row--labels" data-opt="badgeStyle" role="radiogroup">
+              <button type="button" class="custom-builder__opt-btn" data-value="1">Ні</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="2">М'який</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="3">Контраст</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="4">Outline</button>
+              <button type="button" class="custom-builder__opt-btn" data-value="5">Тінь</button>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </aside>
+    <button type="button" class="custom-builder-trigger" id="custom-builder-trigger" aria-label="Відкрити конструктор теми" hidden>⚙ Налаштувати тему</button>
+
+    <main class="resume">
+      <div class="resume__wrap">
+        <aside class="resume__aside">
+          <div
+            class="resume__profile reveal-item"
+            data-reveal="left"
+            data-delay="0"
+          >
+            <div class="resume__profile-photo-box">
+              <div class="resume__photo-frame">
+                <div class="avatar-orbit" aria-hidden="true">
+                  <span class="avatar-dot"></span
+                  ><span class="avatar-dot"></span
+                  ><span class="avatar-dot"></span
+                  ><span class="avatar-dot"></span
+                  ><span class="avatar-dot"></span
+                  ><span class="avatar-dot"></span>
+                </div>
+                <div class="avatar-ring"></div>
+                <div
+                  class="resume__photo-wrap"
+                  id="profile-photo"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Натисни — сюрприз"
+                >
+                  <img
+                    class="resume__photo"
+                    src="./photo.JPG"
+                    alt="Бахтіяров Кирило"
+                    width="180"
+                    height="180"
+                    loading="eager"
+                  />
+                </div>
+                <span class="avatar-badge" aria-hidden="true">DEV</span>
+              </div>
+              <span class="photo-hint" aria-hidden="true"
+                >Клікни — сюрприз 👆</span
+              >
+            </div>
+            <h1 class="resume__name">
+              <span class="resume__surname">Бахтіяров</span>
+              <span class="resume__given">Кирило</span>
+            </h1>
+            <p class="resume__title">Full-Stack розробник / Інженер</p>
+          </div>
+          <div
+            class="resume__contact-block reveal-item"
+            data-reveal="left"
+            data-delay="1"
+          >
+            <h2 class="resume__aside-title">Контакти</h2>
+            <a href="tel:+380936320370" class="copy-on-click" data-copy="+380936320370">+380 93 632 03 70</a>
+            <a href="tel:+380688501490" class="copy-on-click" data-copy="+380688501490">+380 68 850 14 90</a>
+            <a href="mailto:kirycha21@gmail.com" class="copy-on-click" data-copy="kirycha21@gmail.com">kirycha21@gmail.com</a>
+            <a href="https://github.com/example" target="_blank" rel="noopener"
+              >GitHub</a
+            >
+            <h2 class="resume__aside-title">Локація</h2>
+            <span>Київ, Україна</span>
+            <a href="https://linkedin.com" target="_blank" rel="noopener"
+              >LinkedIn</a
+            >
+            <span>@kir_baah</span>
+            <h2 class="resume__aside-title">Мови</h2>
+            <span>Українська — рідна</span>
+            <span>English — B1+</span>
+          </div>
+          <button
+            type="button"
+            class="mini-game-btn"
+            id="mini-game-btn"
+            aria-label="Міні-гра"
+          >
+            🎮 Ігра
+          </button>
+        </aside>
+
+        <div class="resume__content">
+          <section
+            class="resume__section reveal-item"
+            data-reveal="up"
+            data-delay="0"
+            aria-labelledby="education-heading"
+          >
+            <h2 id="education-heading" class="resume__section-title">Освіта</h2>
+            <div class="resume__card">
+              <p>
+                <strong>ВІТІ ім. Героїв Крут</strong> — Комп'ютерні науки, м.
+                Київ (2020–2024)
+              </p>
+              <p>
+                <strong>НУВГП</strong> — Комп'ютерні науки, м. Рівне (2024–2025)
+              </p>
+              <p class="resume__meta">Бакалавр (2024), Магістр (2025)</p>
+            </div>
+          </section>
+
+          <section
+            class="resume__section resume__skills-section reveal-item"
+            data-reveal="up"
+            data-delay="0"
+            aria-labelledby="skills-heading"
+          >
+            <h2 id="skills-heading" class="resume__section-title">Навички</h2>
+            <div class="skills-grid">
+              <div class="resume__card skill-card">
+                <h3 class="skill-card__title">Технічна підтримка</h3>
+                <ul class="skill-list">
+                  <li>
+                    Підтримка користувачів, моніторинг веб-додатків та серверів
+                  </li>
+                  <li>Діагностика, аналіз логів, робота з API</li>
+                </ul>
+              </div>
+              <div class="resume__card skill-card">
+                <h3 class="skill-card__title">Розробка</h3>
+                <ul class="skill-list">
+                  <li>JavaScript (ES6+), TypeScript, React, Next.js</li>
+                  <li>HTML5, CSS3, адаптивна верстка</li>
+                  <li>REST API, клієнт-сервер, авторизація</li>
+                </ul>
+              </div>
+              <div class="resume__card skill-card">
+                <h3 class="skill-card__title">Інструменти</h3>
+                <ul class="skill-list">
+                  <li>Git (GitHub/GitLab), Docker, SQL</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section
+            class="resume__section reveal-item"
+            data-reveal="up"
+            data-delay="0"
+            aria-labelledby="experience-heading"
+          >
+            <h2 id="experience-heading" class="resume__section-title">
+              Досвід
+            </h2>
+            <div class="resume__card resume__timeline">
+              <article
+                class="timeline-item reveal-item"
+                data-reveal="up"
+                data-delay="0"
+              >
+                <span class="timeline-item__year">2022 — н.в.</span>
+                <h3 class="timeline-item__role">Frontend Developer</h3>
+                <p class="timeline-item__company">Студія цифрових продуктів</p>
+                <p class="timeline-item__desc">
+                  Верстка та розробка SPA, компонентна бібліотека, код-рев'ю.
+                </p>
+              </article>
+              <article
+                class="timeline-item reveal-item"
+                data-reveal="up"
+                data-delay="1"
+              >
+                <span class="timeline-item__year">2020 — 2022</span>
+                <h3 class="timeline-item__role">Junior Frontend</h3>
+                <p class="timeline-item__company">Веб-агентство</p>
+                <p class="timeline-item__desc">
+                  Лендинги, корпоративні сайти, інтеграції з CMS.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section
+            class="resume__section reveal-item"
+            data-reveal="up"
+            data-delay="0"
+            aria-labelledby="about-heading"
+          >
+            <h2 id="about-heading" class="resume__section-title">Про себе</h2>
+            <div class="resume__card">
+              <p class="reading-time" id="reading-time" aria-live="polite"></p>
+              <p class="resume__about-text">
+                Орієнтований на результат IT-фахівець та розробник з досвідом у
+                створенні програмних продуктів, IT-систем та технічній
+                підтримці. Поєдную навички front-end і back-end розробки з
+                інженерним підходом до експлуатації та стабільності систем.
+                Досвід роботи з JavaScript/TypeScript та Python для full-stack
+                рішень, інтеграція API, обробка даних, клієнт-серверна
+                взаємодія, масштабованість, чистий код, контейнеризація (Docker,
+                Docker Compose), робота з БД (PostgreSQL, MongoDB, MySQL,
+                SQLite), логування та моніторинг. Досвід презентації рішень,
+                підготовки технічних матеріалів, навчання користувачів та роботи
+                в структурованому середовищі з підтримкою та впровадженням
+                інформаційних систем.
+              </p>
+            </div>
+          </section>
+
+          <div class="page-tips" aria-label="Поради для відвідувачів">
+            <details class="page-tips__details">
+              <summary class="page-tips__summary">Цікаві можливості сторінки</summary>
+              <ul class="page-tips__list">
+                <li>Наведіть на навички та контакти — побачите ефекти.</li>
+                <li>Клікайте по картках та кнопці «Вгору» — ефект хвилі.</li>
+                <li>Клік по телефону або email — копіювання в буфер (з’явиться «Скопійовано»).</li>
+                <li>Відкрийте «Тема» — 17 тем, пункти з’являються по черзі; у кожній темі своя міні-гра (кнопка «Ігра»).</li>
+                <li>Секрет: введіть на клавіатурі <kbd>↑</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> <kbd>←</kbd> <kbd>→</kbd> <kbd>B</kbd> <kbd>A</kbd>.</li>
+              </ul>
+            </details>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="mini-game-overlay"
+      id="mini-game-overlay"
+      hidden
+      aria-modal="true"
+      aria-labelledby="mini-game-title"
+    >
+      <div class="mini-game-panel">
+        <button
+          type="button"
+          class="mini-game-close"
+          id="mini-game-close"
+          aria-label="Закрити"
+        >
+          ×
+        </button>
+        <h2 class="mini-game-title" id="mini-game-title">Міні-гра</h2>
+        <p class="mini-game-score" id="mini-game-score"></p>
+        <div class="mini-game-area" id="mini-game-area"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
