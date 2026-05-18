@@ -2998,6 +2998,17 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--accent);
   word-break: break-all;
 }
+.resume__freelancehunt-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  line-height: 0;
+}
+.resume__freelancehunt-badge img {
+  display: block;
+  max-width: 150px;
+  height: auto;
+  border-radius: 4px;
+}
 .resume__contact-block span { color: var(--text-muted); }
 .resume__aside-title {
   font-family: var(--font-heading);
